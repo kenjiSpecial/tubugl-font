@@ -1,0 +1,28 @@
+{
+  "name": "tubugl-font",
+  "version": "1.0.0",
+  "description": "prototype tool with parcel",
+  "main": "./src/main.js",
+  "license": "MIT",
+  "scripts": {
+    "example00": "parcel examples/example00/index.html --no-hmr",
+    "dist00": "parcel build examples/example00/index.html -d docs/example00 --public-url ./",
+    "screenshot00": "node ./node/screenshot.js --dir=example00",
+    "docs": "python -m SimpleHTTPServer 8000"
+  },
+  "dependencies": {
+    "parcel-plugin-glsl": "kenjiSpecial/parcel-plugin-glsl",
+    "tubugl-camera": "^1.3.2",
+    "tubugl-constants": "^1.0.3",
+    "tubugl-core": "kenjiSpecial/tubugl-core",
+    "tubugl-math": "kenjiSpecial/tubugl-math"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "gsap": "^1.20.3",
+    "minimist": "^1.2.0",
+    "puppeteer": "^0.13.0",
+    "stats.js": "mrdoob/stats.js"
+  }
+}
