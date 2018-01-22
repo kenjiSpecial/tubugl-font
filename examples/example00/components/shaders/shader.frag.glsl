@@ -4,10 +4,10 @@ uniform sampler2D uTexture;
 
 varying vec2 vUv;
 
-const float smoothing = 1.0/32.0;
+const float smoothing = 1.0/16.0;
 const float sdfTexel = 1.0/512.0;
 const float hint_amount = 1.0;
-const float subpixel_amount = 0.0;
+const float subpixel_amount = 1.0;
 
 vec3 subpixel( float v, float a ) {
     float vt      = 0.6 * v; // 1.0 will make your eyes bleed
@@ -48,7 +48,6 @@ void main() {
     vec3 font_color = vec3(1.0);
     vec3 res = mix( bg_color, font_color, channels );
     
-    // gl_FragColor = vec4( res, 1.0 );
     gl_FragColor = vec4(res, 1.0);       
     
 }   
