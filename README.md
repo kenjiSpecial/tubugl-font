@@ -1,23 +1,29 @@
-# parcel-prototype-kit
+# tubugl-font
 
 [![NPM version][npm-image]][npm-url] 
 
-prototype kit with parcel
+font rendering with tubugl
+
+it uses [signed distance field method](http://www.valvesoftware.com/publications/2007/SIGGRAPH2007_AlphaTestedMagnification.pdf) for glyph rendering.
 
 ## install
 
 To install it with yarn:
 
 ```sh
-yarn add ###-###
+yarn add tubugl-fonts 
 ```
+
+## tool to export font file into png and json
+
+hiero and fnt_to_json.py in tools folder are used to export png and json for rendering font on webgl. more explanation are here.
+
 
 ## usage
 
 
 ## examples
 
-https://kenjispecial.github.io/tubugl-helper/
 
 ## Running the examples locally
 
@@ -25,8 +31,16 @@ you need to install [parcel](https://github.com/parcel-bundler/parcel) to run ex
 
 ```sh
 yarn
-yarn run ###-###
+yarn run example00 # 00 - 01 are available
 ```
+
+## referrence
+
+- [https://github.com/astiopin/webgl_fonts](https://github.com/astiopin/webgl_fonts)
+- [https://github.com/Tw1ddle/WebGL-Distance-Fields](https://github.com/Tw1ddle/WebGL-Distance-Fields)
+- [https://github.com/libgdx/libgdx/wiki/Distance-field-fonts](https://github.com/libgdx/libgdx/wiki/Distance-field-fonts)
+- [https://github.com/Empty2k12/WebGL2SDFText](https://github.com/Empty2k12/WebGL2SDFText)
+- [https://github.com/mapbox/tiny-sdf](https://github.com/mapbox/tiny-sdf)
 
 [npm-image]: https://img.shields.io/npm/v/###-###.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/###-###
