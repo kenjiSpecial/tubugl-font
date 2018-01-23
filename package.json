@@ -1,7 +1,7 @@
 {
   "name": "tubugl-font",
   "version": "1.0.0",
-  "description": "prototype tool with parcel",
+  "description": "rendering font with tubugl",
   "main": "./src/main.js",
   "license": "MIT",
   "scripts": {

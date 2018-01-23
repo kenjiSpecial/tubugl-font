@@ -11,7 +11,7 @@ module.exports = {
 	rules: {
 		'arrow-body-style': ['error', 'always'],
 		quotes: ['error', 'single'],
-		semi: ['error', 'always'],
-		'no-console': 'off'
+		semi: ['error', 'always']
+		// 'no-console': 'off'
 	}
 };
