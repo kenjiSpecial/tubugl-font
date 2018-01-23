@@ -2,7 +2,15 @@ const dat = require('../vendors/dat.gui.min');
 const TweenLite = require('gsap/src/uncompressed/TweenLite');
 const Stats = require('stats.js');
 
-import { Program, ArrayBuffer, IndexArrayBuffer, Texture } from 'tubugl-core';
+import {
+	Program,
+	ArrayBuffer,
+	IndexArrayBuffer,
+	Texture
+} from 'tubugl-core';
+import {
+	Text
+} from './text';
 
 import vertexShader from './components/shaders/shader.vert.glsl';
 import fragmentShader from './components/shaders/shader.frag.glsl';
@@ -11,7 +19,9 @@ import fragmentShader from './components/shaders/shader.frag.glsl';
 import json from '../assets/roboto.json';
 import imgURL from '../assets/roboto.png';
 
-import { OrthographicCamera } from 'tubugl-camera';
+import {
+	OrthographicCamera
+} from 'tubugl-camera';
 
 export default class App {
 	constructor(params = {}) {
@@ -31,7 +41,7 @@ export default class App {
 			descId.style.display = 'none';
 		}
 
-		this._createProgram();
+		this._makeProgram();
 		this._makeCamera();
 		this.resize(this._width, this._height);
 	}
@@ -41,30 +51,24 @@ export default class App {
 		this.playAndStopGui = this.gui.add(this, '_playAndStop').name('pause');
 	}
 
-	_createProgram() {
-		console.log(fragmentShader);
+	_makeText() {
+		// this._text = new Text(this.gl, {}, 'a');
+	}
+
+	_makeProgram() {
 		this._program = new Program(this.gl, vertexShader, fragmentShader);
-		console.log(json);
 		let imageWidth = json.common.scaleW;
 		let imageHeight = json.common.scaleH;
+		console.log(json);
 		let charCode = 'A'.charCodeAt(0);
+		let scale = 16 / json.info.size;
 		let fontData = json.chars[charCode];
-		let startX = -fontData.width / 2;
-		let endX = startX + fontData.width;
-		let startY = fontData.height / 2;
-		let endY = startY - fontData.height;
+		let startX = -fontData.width / 2 * scale;
+		let endX = startX + fontData.width * scale;
+		let startY = fontData.height / 2 * scale;
+		let endY = startY - fontData.height * scale;
 
-		let scale = 5;
-		let vertices = new Float32Array([
-			startX * scale,
-			startY * scale,
-			endX * scale,
-			startY * scale,
-			endX * scale,
-			endY * scale,
-			startX * scale,
-			endY * scale
-		]);
+		let vertices = new Float32Array([startX, startY, endX, startY, endX, endY, startX, endY]);
 
 		// console.log(imageWidth, imageHeight);
 		let startUVX = fontData.x / imageWidth;
@@ -103,11 +107,9 @@ export default class App {
 	}
 
 	_makeCamera() {
-		this._orthographicCamera = new OrthographicCamera(
-			-window.innerWidth / 2,
+		this._orthographicCamera = new OrthographicCamera(-window.innerWidth / 2,
 			window.innerWidth / 2,
-			window.innerHeight / 2,
-			-window.innerHeight / 2,
+			window.innerHeight / 2, -window.innerHeight / 2,
 			1,
 			2000
 		);
@@ -221,11 +223,9 @@ export default class App {
 		this.canvas.width = this._width;
 		this.canvas.height = this._height;
 		this.gl.viewport(0, 0, this._width, this._height);
-		this._orthographicCamera.updateSize(
-			-this._width / 2,
+		this._orthographicCamera.updateSize(-this._width / 2,
 			this._width / 2,
-			this._height / 2,
-			-this._height / 2
+			this._height / 2, -this._height / 2
 		);
 	}
 
