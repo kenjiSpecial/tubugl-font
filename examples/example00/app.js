@@ -3,10 +3,11 @@ const TweenLite = require('gsap/src/uncompressed/TweenLite');
 const Stats = require('stats.js');
 
 import { Program, ArrayBuffer, IndexArrayBuffer, Texture } from 'tubugl-core';
+import { Text } from './text';
 
 import vertexShader from './components/shaders/shader.vert.glsl';
 import fragmentShader from './components/shaders/shader.frag.glsl';
-import { appCall } from '../../src/index';
+// import { appCall } from '../../src/index'
 
 import json from '../assets/roboto.json';
 import imgURL from '../assets/roboto.png';
@@ -31,7 +32,7 @@ export default class App {
 			descId.style.display = 'none';
 		}
 
-		this._createProgram();
+		this._makeProgram();
 		this._makeCamera();
 		this.resize(this._width, this._height);
 	}
@@ -41,36 +42,41 @@ export default class App {
 		this.playAndStopGui = this.gui.add(this, '_playAndStop').name('pause');
 	}
 
-	_createProgram() {
+	_makeText() {
+		// this._text = new Text(this.gl, {}, 'a');
+	}
+
+	_makeProgram() {
 		this._program = new Program(this.gl, vertexShader, fragmentShader);
-		console.log(json);
 		let imageWidth = json.common.scaleW;
 		let imageHeight = json.common.scaleH;
+		console.log(json);
 		let charCode = 'A'.charCodeAt(0);
-		console.log(charCode);
+		let scale = 16 / json.info.size;
 		let fontData = json.chars[charCode];
-		console.log(fontData);
-		let startX = -fontData.width / 2;
-		let endX = startX + fontData.width;
-		let startY = fontData.height / 2;
-		let endY = startY - fontData.height;
+		let startX = -fontData.width / 2 * scale;
+		let endX = startX + fontData.width * scale;
+		let startY = fontData.height / 2 * scale;
+		let endY = startY - fontData.height * scale;
 
-		let scale = 10;
-		let vertices = new Float32Array([
-			startX * scale,
-			startY * scale,
-			endX * scale,
-			startY * scale,
-			endX * scale,
-			endY * scale,
-			startX * scale,
-			endY * scale
+		let vertices = new Float32Array([startX, startY, endX, startY, endX, endY, startX, endY]);
+
+		// console.log(imageWidth, imageHeight);
+		let startUVX = fontData.x / imageWidth;
+		let endUVX = startUVX + fontData.width / imageWidth;
+		let startUVY = fontData.y / imageHeight;
+		let endUVY = startUVY + fontData.height / imageHeight;
+
+		let uv = new Float32Array([
+			startUVX,
+			startUVY,
+			endUVX,
+			startUVY,
+			endUVX,
+			endUVY,
+			startUVX,
+			endUVY
 		]);
-
-		console.log(imageWidth, imageHeight);
-		let startUVX =
-
-		let uv = new Float32Array([0, 0, 1, 0, 1, 1, 0, 1]);
 
 		let indices = new Uint16Array([0, 2, 1, 0, 3, 2]);
 
@@ -106,7 +112,7 @@ export default class App {
 	}
 
 	_makeTexture() {
-		this._fontTexture = new Texture(this.gl);
+		this._fontTexture = new Texture(this.gl, this.gl.RGBA, this.gl.RGBA);
 		this._fontTexture
 			.bind()
 			.setFilter()
