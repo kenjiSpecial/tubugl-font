@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "example00": "parcel examples/example00/index.html --no-hmr",
+    "example01": "parcel examples/example01/index.html --no-hmr",
     "dist00": "parcel build examples/example00/index.html -d docs/example00 --public-url ./",
     "screenshot00": "node ./node/screenshot.js --dir=example00",
     "docs": "python -m SimpleHTTPServer 8000"

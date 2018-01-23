@@ -16,10 +16,8 @@ yarn add tubugl-fonts
 
 ## tool to export font file into png and json
 
-hiero and fnt_to_json.py in tools folder are used to export png and json for rendering font on webgl. more explanation are here.
+hiero and fnt_to_json.py in tools folder are used to export png and json for rendering font on webgl. more explanation about them is [here](https://github.com/kenjiSpecial/tubugl-font/tree/master/tools).
 
-
-## usage
 
 
 ## examples
