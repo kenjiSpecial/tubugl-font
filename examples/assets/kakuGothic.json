@@ -1,0 +1,114 @@
+{
+    "info": {
+        "aa": 1,
+        "bold": 0,
+        "spacing": [-2, -2],
+        "charset": "",
+        "smooth": 1,
+        "stretchH": 100,
+        "face": "HiraKakuPro-W3",
+        "padding": [20, 20, 20, 20],
+        "italic": 0,
+        "unicode": 0,
+        "size": 64
+    },
+    "chars": {
+        "12525": {
+            "chnl": 0,
+            "height": 86,
+            "width": 86,
+            "xadvance": 102,
+            "y": 0,
+            "x": 199,
+            "yoffset": -9,
+            "id": 12525,
+            "xoffset": -11,
+            "page": 0
+        },
+        "12451": {
+            "chnl": 0,
+            "height": 84,
+            "width": 82,
+            "xadvance": 102,
+            "y": 0,
+            "x": 374,
+            "yoffset": -3,
+            "id": 12451,
+            "xoffset": -11,
+            "page": 0
+        },
+        "12487": {
+            "chnl": 0,
+            "height": 99,
+            "width": 99,
+            "xadvance": 102,
+            "y": 0,
+            "x": 100,
+            "yoffset": -19,
+            "id": 12487,
+            "xoffset": -15,
+            "page": 0
+        },
+        "12531": {
+            "chnl": 0,
+            "height": 86,
+            "width": 89,
+            "xadvance": 102,
+            "y": 0,
+            "x": 285,
+            "yoffset": -9,
+            "id": 12531,
+            "xoffset": -11,
+            "page": 0
+        },
+        "12464": {
+            "chnl": 0,
+            "height": 100,
+            "width": 100,
+            "xadvance": 102,
+            "y": 0,
+            "x": 0,
+            "yoffset": -20,
+            "id": 12464,
+            "xoffset": -16,
+            "page": 0
+        },
+        "32": {
+            "chnl": 0,
+            "height": 0,
+            "width": 0,
+            "xadvance": 59,
+            "y": 0,
+            "x": 0,
+            "yoffset": 0,
+            "id": 32,
+            "xoffset": -20,
+            "page": 0
+        },
+        "12540": {
+            "chnl": 0,
+            "height": 47,
+            "width": 94,
+            "xadvance": 102,
+            "y": 100,
+            "x": 0,
+            "yoffset": 9,
+            "id": 12540,
+            "xoffset": -15,
+            "page": 0
+        }
+    },
+    "page": {
+        "id": 0,
+        "file": "kakuGothic.png"
+    },
+    "common": {
+        "scaleW": 512,
+        "base": 57,
+        "lineHeight": 135,
+        "scaleH": 512,
+        "pages": 1,
+        "packed": 0
+    },
+    "kernings": {}
+}
