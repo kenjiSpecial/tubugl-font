@@ -21,9 +21,13 @@ export default class App {
 		this.canvas = document.createElement('canvas');
 		this.gl = this.canvas.getContext('webgl');
 
+		this._isAnimateIn = false;
+		this._isLoaded = false;
+
+		this.resize(this._width, this._height);
+		this._startLoad();
 		this._makeCamera();
 		this._makeText();
-		this.resize(this._width, this._height);
 
 		if (params.isDebug) {
 			this.stats = new Stats();
@@ -50,8 +54,8 @@ export default class App {
 		let cnt = 0;
 		for (let yPos = -yy; yPos <= yy; yPos++) {
 			for (let xPos = -xx; xPos <= xx; xPos++) {
-				let rotSpeed = 1 / 80; //+ Math.sqrt(xPos / xx * xPos / xx + yPos / yy * yPos / yy) * 1 / 120;
-				// console.log(rotSpeed);
+				let rotSpeed = 1 / 80;
+
 				this._textes.push(
 					new CustomText(
 						this.gl,
@@ -103,14 +107,17 @@ export default class App {
 		this._loadedCnt = 0;
 		this._fontImg = new Image();
 		this._fontImg.onload = () => {
+			this._isLoaded = true;
 			this._makeTexture();
-			this.start();
+			if (this._isAnimateIn) this.start();
 		};
 		this._fontImg.src = imgURL;
 	}
 
 	animateIn() {
-		this._startLoad();
+		this._isAnimateIn = true;
+
+		if (this._isLoaded) this.start();
 	}
 
 	start() {
@@ -176,12 +183,13 @@ export default class App {
 		this.canvas.width = this._width;
 		this.canvas.height = this._height;
 		this.gl.viewport(0, 0, this._width, this._height);
-		this._orthographicCamera.updateSize(
-			-this._width / 2,
-			this._width / 2,
-			this._height / 2,
-			-this._height / 2
-		);
+		if (this._orthographicCamera)
+			this._orthographicCamera.updateSize(
+				-this._width / 2,
+				this._width / 2,
+				this._height / 2,
+				-this._height / 2
+			);
 		this.gl.clearColor(0, 0, 0, 1);
 		this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 	}
