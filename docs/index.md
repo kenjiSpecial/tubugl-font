@@ -1,5 +1,5 @@
 
-GitHub: [https://github.com/kenjiSpecial/tubugl-text](https://github.com/kenjiSpecial/tubugl-text)
+GitHub: [https://github.com/kenjiSpecial/tubugl-font](https://github.com/kenjiSpecial/tubugl-font)
 
 
 ### [#00](./example00/index.html)
