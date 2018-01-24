@@ -2,7 +2,7 @@
 
 font rendering with tubugl
 
-it uses [signed distance field method](http://www.valvesoftware.com/publications/2007/SIGGRAPH2007_AlphaTestedMagnification.pdf) for glyph rendering.
+it uses [signed distance field method](http://www.valvesoftware.com/publications/2007/SIGGRAPH2007_AlphaTestedMagnification.pdf) for rendering of font.
 
 ## install
 
