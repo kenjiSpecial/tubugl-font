@@ -8,7 +8,9 @@ import { CustomText } from './customText';
 // import { appCall } from '../../src/index'
 
 import json from '../assets/roboto.json';
+import jpJson from '../assets/kakuGothic.json';
 import imgURL from '../assets/roboto.png';
+import jpImgURL from '../assets/kakuGothic.png';
 
 import { OrthographicCamera } from 'tubugl-camera';
 
@@ -42,7 +44,14 @@ export default class App {
 	}
 
 	_makeText() {
-		this._text = new CustomText(this.gl, {}, { front: 'A', back: 'B' }, json, null, 100);
+		this._text = new CustomText(
+			this.gl,
+			{ transX: 0 },
+			{ front: 'A', back: 'B' },
+			json,
+			null,
+			100
+		);
 	}
 
 	_makeCamera() {

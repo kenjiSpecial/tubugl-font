@@ -8,7 +8,7 @@ export class CustomText {
 	constructor(gl, params = {}, textes, fontData, fontTexture, fontSize = 32) {
 		this._front = new SpecialText(
 			gl,
-			{ side: 'front', type: 'a' },
+			{ side: 'front', type: 'a', transX: params.transX },
 			textes.front,
 			fontData,
 			null,
@@ -16,7 +16,7 @@ export class CustomText {
 		);
 		this._back = new SpecialText(
 			gl,
-			{ side: 'front', type: 'b' },
+			{ side: 'front', type: 'b', transX: params.transX },
 			textes.back,
 			fontData,
 			null,
@@ -41,6 +41,8 @@ class SpecialText extends Text {
 	constructor(gl, params, textes, fontData, fontTexture, fontSize) {
 		super(gl, params, textes, fontData, fontTexture, fontSize);
 		this._rate = 0;
+		this._transX = params.transX;
+		console.log(this._transX);
 
 		this._type = params.type;
 	}
@@ -143,6 +145,7 @@ class SpecialText extends Text {
 		let progressRateUniform = this._program.getUniforms('uProgressRate');
 		if (progressRateUniform)
 			this._gl.uniform1f(progressRateUniform.location, this.progressRate);
+		this._gl.uniform1f(this._program.getUniforms('uTransX').location, this._transX);
 
 		return this;
 	}

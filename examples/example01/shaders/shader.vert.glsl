@@ -24,7 +24,7 @@ mat4 rotationMatrix(vec3 axis, float angle)
 
 void main() {
     vec3 axis = vec3(0., 1., 0.);
-    mat4 modelMat = rotationMatrix(axis, 3.1415 * (uProgressRate + customUv.y/2. + customUv.x/10.));
+    mat4 modelMat = rotationMatrix(axis, 3.1415 * (uProgressRate + customUv.y  * 0.75));
     gl_Position = projectionMatrix * viewMatrix * modelMat * a_position;
 
     vUv =   uv;
