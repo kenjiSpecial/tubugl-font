@@ -24,8 +24,9 @@ export default class App {
 		this._isAnimateIn = false;
 		this._isLoaded = false;
 
+		this._speed = 1;
+
 		this.resize(this._width, this._height);
-		// this._startLoad();
 		this._makeCamera();
 		this._makeText();
 
@@ -42,6 +43,10 @@ export default class App {
 	_addGui() {
 		this.gui = new dat.GUI();
 		this.playAndStopGui = this.gui.add(this, '_playAndStop').name('pause');
+		this.gui
+			.add(this, '_speed', 0.1, 1.5)
+			.step(0.01)
+			.name('rotationSpeed');
 		// this._text.addGUI(this.gui);
 	}
 
@@ -131,10 +136,8 @@ export default class App {
 		this.gl.clearColor(0, 0, 0, 1);
 		this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
-		// this._text.rotation.y += 1 / 60;
-		// this._text.render(this._orthographicCamera);
 		this._textes.forEach(text => {
-			text.render(this._orthographicCamera);
+			text.render(this._orthographicCamera, this._speed);
 		});
 	}
 
