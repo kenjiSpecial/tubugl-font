@@ -25,7 +25,7 @@ export default class App {
 		this._isLoaded = false;
 
 		this.resize(this._width, this._height);
-		this._startLoad();
+		// this._startLoad();
 		this._makeCamera();
 		this._makeText();
 
@@ -116,8 +116,8 @@ export default class App {
 
 	animateIn() {
 		this._isAnimateIn = true;
-
-		if (this._isLoaded) this.start();
+		this._startLoad();
+		// if (this._isLoaded) this.start();
 	}
 
 	start() {
