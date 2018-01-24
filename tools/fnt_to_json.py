@@ -65,7 +65,7 @@ def main(argv):
         elif line.startswith('char'):
             (name, result) = line_to_json(line)
             print(name)
-            print(chr(int(result['id'])))
+            # print(chr(int(result['id'])))
             output['chars'][str(result['id'])] = result
         elif line.startswith('kerning'):
             (name, result) = line_to_json(line)
