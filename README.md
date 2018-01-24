@@ -1,6 +1,5 @@
 # tubugl-font
 
-[![NPM version][npm-image]][npm-url] 
 
 font rendering with tubugl
 
