@@ -38,11 +38,11 @@ export default class App {
 	_addGui() {
 		this.gui = new dat.GUI();
 		this.playAndStopGui = this.gui.add(this, '_playAndStop').name('pause');
-		this._text.addGUI(this.gui);
+		// this._text.addGUI(this.gui);
 	}
 
 	_makeText() {
-		this._text = new CustomText(this.gl, {}, 'A', json, null, 100);
+		this._text = new CustomText(this.gl, {}, { front: 'A', back: 'B' }, json, null, 100);
 	}
 
 	_makeCamera() {
@@ -94,7 +94,7 @@ export default class App {
 		this.gl.clearColor(0, 0, 0, 1);
 		this.gl.clear(this.gl.COLOR_BUFFER_BIT);
 
-		this._text.rotation.y += 1 / 60;
+		// this._text.rotation.y += 1 / 60;
 		this._text.render(this._orthographicCamera);
 	}
 

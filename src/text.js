@@ -33,7 +33,7 @@ export class Text extends Object3D {
 			params.vertexShaderSrc ? params.vertexShaderSrc : baseVertexShaderSrc,
 			params.fragmentShaderSrc ? params.fragmentShaderSrc : baseFragmentShaderSrc
 		);
-		if (this._fontData) this._makeBuffer();
+		if (this._fontData && this._text) this._makeBuffer();
 	}
 
 	updateFontData(fontData) {
@@ -72,11 +72,12 @@ export class Text extends Object3D {
 			false,
 			camera.projectionMatrix
 		);
-		this._gl.uniformMatrix4fv(
-			this._program.getUniforms('modelMatrix').location,
-			false,
-			this.modelMatrix
-		);
+		if (this._program.getUniforms('modelMatrix'))
+			this._gl.uniformMatrix4fv(
+				this._program.getUniforms('modelMatrix').location,
+				false,
+				this.modelMatrix
+			);
 
 		let smoothingUniform = this._program.getUniforms('uSmoothing');
 		let sdfTexelUniform = this._program.getUniforms('uSdfTexel');
