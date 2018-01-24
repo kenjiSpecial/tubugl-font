@@ -1,6 +1,5 @@
 # tubugl-font
 
-
 font rendering with tubugl
 
 it uses [signed distance field method](http://www.valvesoftware.com/publications/2007/SIGGRAPH2007_AlphaTestedMagnification.pdf) for glyph rendering.
@@ -10,7 +9,7 @@ it uses [signed distance field method](http://www.valvesoftware.com/publications
 To install it with yarn:
 
 ```sh
-yarn add tubugl-fonts 
+yarn add kenjiSpecial/tubugl-fonts 
 ```
 
 ## tool to export font file into png and json
@@ -21,6 +20,7 @@ hiero and fnt_to_json.py in tools folder are used to export png and json for ren
 
 ## examples
 
+https://github.com/kenjiSpecial/tubugl-font
 
 ## Running the examples locally
 
@@ -28,7 +28,7 @@ you need to install [parcel](https://github.com/parcel-bundler/parcel) to run ex
 
 ```sh
 yarn
-yarn run example00 # 00 - 01 are available
+yarn run example00 # 00 - 02 are available
 ```
 
 ## referrence
