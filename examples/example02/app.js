@@ -8,9 +8,7 @@ import { CustomText } from './customText';
 // import { appCall } from '../../src/index'
 
 import json from '../assets/roboto.json';
-import jpJson from '../assets/kakuGothic.json';
 import imgURL from '../assets/roboto.png';
-import jpImgURL from '../assets/kakuGothic.png';
 
 import { OrthographicCamera } from 'tubugl-camera';
 
@@ -47,20 +45,29 @@ export default class App {
 		let fontSize = 50;
 		this._textes = [];
 
-		let xx = 1;
-		let yy = 1;
+		let xx = 4;
+		let yy = 4;
+		let cnt = 0;
 		for (let yPos = -yy; yPos <= yy; yPos++) {
 			for (let xPos = -xx; xPos <= xx; xPos++) {
+				let rotSpeed = 1 / 80; //+ Math.sqrt(xPos / xx * xPos / xx + yPos / yy * yPos / yy) * 1 / 120;
+				// console.log(rotSpeed);
 				this._textes.push(
 					new CustomText(
 						this.gl,
-						{ transX: 50 * xPos, transY: 50 * yPos },
-						{ front: 'A', back: 'B' },
+						{
+							transX: 50 * xPos,
+							transY: 50 * yPos,
+							rotSpeed: rotSpeed,
+							direction: cnt % 2 === 0 ? 1 : -1
+						},
 						json,
 						null,
 						fontSize
 					)
 				);
+
+				cnt++;
 			}
 		}
 	}

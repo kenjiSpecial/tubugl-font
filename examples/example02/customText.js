@@ -4,25 +4,72 @@ import { Program, ArrayBuffer, IndexArrayBuffer } from 'tubugl-core';
 const baseVertexShaderSrc = require('./shaders/shader.vert.glsl');
 const baseFragmentShaderSrc = require('./shaders/shader.frag.glsl');
 
+const alphabets = [
+	'a',
+	'b',
+	'c',
+	'd',
+	'e',
+	'f',
+	'g',
+	'h',
+	'i',
+	'j',
+	'k',
+	'l',
+	'm',
+	'n',
+	'o',
+	'p',
+	'q',
+	'r',
+	's',
+	't',
+	'u',
+	'v',
+	'w',
+	'x',
+	'y',
+	'z'
+];
+
+const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
 export class CustomText {
-	constructor(gl, params = {}, textes, fontData, fontTexture, fontSize = 32) {
+	constructor(gl, params = {}, fontData, fontTexture, fontSize = 32) {
+		this._direction = params.direction;
 		this._front = new SpecialText(
 			gl,
-			{ side: 'front', type: 'a', transX: params.transX, transY: params.transY },
-			textes.front,
+			{
+				side: 'front',
+				type: 'a',
+				transX: params.transX,
+				transY: params.transY,
+				direction: this._direction
+			},
+			this._direction === 1 ? 'a' : '0',
 			fontData,
 			null,
 			fontSize
 		);
 		this._back = new SpecialText(
 			gl,
-			{ side: 'front', type: 'b', transX: params.transX, transY: params.transY },
-			textes.back,
+			{
+				side: 'front',
+				type: 'b',
+				transX: params.transX,
+				transY: params.transY,
+				direction: this._direction
+			},
+			this._direction === 1 ? 'b' : '1',
 			fontData,
 			null,
 			fontSize
 		);
+
+		this._cnt = 1;
 		this._rot = 0;
+		this._rotSpeed = params.rotSpeed;
 	}
 	updateFontTexture(texture) {
 		this._front.updateFontTexture(texture);
@@ -30,28 +77,70 @@ export class CustomText {
 	}
 	render(camera) {
 		// this._rate += 1 / 60;
-		this._front.rate += 1 / 60;
-		this._back.rate += 1 / 60;
+		this.updateText();
+		this._front.rate += this._rotSpeed;
+		this._back.rate += this._rotSpeed;
 		this._front.render(camera);
 		this._back.render(camera);
+	}
+	updateText() {
+		if (this._direction == 1) {
+			let frontNumRate = parseInt(this._front.rate - 0.5);
+			if (
+				frontNumRate != 0 &&
+				frontNumRate % 2 == 0 &&
+				frontNumRate != parseInt(this._front.prevRate - 0.5)
+			) {
+				this._cnt = (this._cnt + 1) % alphabets.length;
+				this._front.updateText(alphabets[this._cnt]);
+			}
+
+			if (frontNumRate % 2 == 1 && frontNumRate != parseInt(this._front.prevRate - 0.5)) {
+				this._cnt = (this._cnt + 1) % alphabets.length;
+				this._back.updateText(alphabets[this._cnt]);
+			}
+		} else {
+			let frontNumRate = parseInt(this._front.rate - 0.5);
+			if (frontNumRate % 2 == 1 && frontNumRate != parseInt(this._front.prevRate - 0.5)) {
+				this._cnt = (this._cnt + 1) % numbers.length;
+				this._front.updateText(numbers[this._cnt]);
+			}
+
+			if (
+				frontNumRate > 0 &&
+				frontNumRate % 2 == 0 &&
+				frontNumRate != parseInt(this._front.prevRate - 0.5)
+			) {
+				this._cnt = (this._cnt + 1) % numbers.length;
+				this._back.updateText(numbers[this._cnt]);
+			}
+		}
 	}
 }
 
 class SpecialText extends Text {
 	constructor(gl, params, textes, fontData, fontTexture, fontSize) {
 		super(gl, params, textes, fontData, fontTexture, fontSize);
-		this._rate = 0;
+
+		if (this._direction < 0) {
+			this.prevRate = 0;
+			this.rate = 0;
+		} else {
+			this.prevRate = 0;
+			this.rate = 0;
+		}
 		this._transX = params.transX;
 		this._transY = params.transY;
+		this._direction = params.direction;
 
 		this.smoothing = 1 / 16;
 		this._type = params.type;
 	}
 
 	set rate(value) {
+		this.prevRate = this._rate;
 		this._rate = value;
 		this.progressRate = this._type == 'a' ? this._rate : this._rate + 1;
-		this.rotation.y = this._type == 'a' ? this._rate * Math.PI : (this._rate + 1) * Math.PI;
 	}
 
 	get rate() {
@@ -76,6 +165,7 @@ class SpecialText extends Text {
 		let imageHeightSegment = 20;
 		let fontScale = this._fontSize / this._fontData.info.size;
 
+		this._text = this._text.toUpperCase();
 		let charCode = this._text.charCodeAt(0);
 		let textFontData = this._fontData.chars[charCode];
 		let textWidth = textFontData.width * fontScale;
@@ -112,7 +202,7 @@ class SpecialText extends Text {
 		} else
 			this._positionBuffer
 				.bind()
-				.update(new Float32Array(vertices))
+				.setData(new Float32Array(vertices))
 				.unbind();
 
 		if (!this._uvBuffer) {
@@ -121,7 +211,7 @@ class SpecialText extends Text {
 		} else
 			this._uvBuffer
 				.bind()
-				.update(new Float32Array(uvs))
+				.setData(new Float32Array(uvs))
 				.unbind();
 
 		if (!this._customUvBuffer) {
@@ -130,7 +220,7 @@ class SpecialText extends Text {
 		} else
 			this._customUvBuffer
 				.bind()
-				.update(new Float32Array(customUvs))
+				.setData(new Float32Array(customUvs))
 				.unbind();
 
 		if (!this._indexBuffer)
@@ -145,7 +235,7 @@ class SpecialText extends Text {
 
 		let progressRateUniform = this._program.getUniforms('uProgressRate');
 		if (progressRateUniform)
-			this._gl.uniform1f(progressRateUniform.location, this.progressRate);
+			this._gl.uniform1f(progressRateUniform.location, this.progressRate * this._direction);
 		this._gl.uniform2f(
 			this._program.getUniforms('uTrans').location,
 			this._transX,
@@ -153,6 +243,11 @@ class SpecialText extends Text {
 		);
 
 		return this;
+	}
+
+	updateText(value) {
+		this._text = value;
+		this._makeBuffer();
 	}
 
 	static getVertices(width, height, widthSegment, heightSegment) {

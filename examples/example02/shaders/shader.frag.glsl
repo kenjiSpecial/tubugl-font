@@ -3,6 +3,7 @@ precision mediump float;
 uniform sampler2D uTexture;
 
 varying vec2 vUv;
+varying float vTransRate;
 
 uniform float uSmoothing;
 uniform float uSdfTexel;
@@ -25,6 +26,7 @@ void main() {
     float sdf       = texture2D( uTexture, vUv ).a;
     float alpha       = smoothstep( 0.5 - uSmoothing, 0.5 + uSmoothing, sdf );
     if ( alpha < 20.0 / 256.0 ) discard;
-    vec3 res = mix( uBgColor, uFontColor, alpha );
+    alpha = alpha * mix(0.3, 1.0, vTransRate);
+    vec3 res = mix( uBgColor, uFontColor, alpha  );
     gl_FragColor = vec4(res, alpha);       
 }   
