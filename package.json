@@ -19,7 +19,7 @@
     "tubugl-3d-shape": "^1.3.2",
     "tubugl-camera": "^1.3.2",
     "tubugl-constants": "^1.0.3",
-    "tubugl-core": "kenjiSpecial/tubugl-core",
+    "tubugl-core": "^1.1.8",
     "tubugl-math": "kenjiSpecial/tubugl-math"
   },
   "devDependencies": {
