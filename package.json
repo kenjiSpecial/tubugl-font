@@ -20,7 +20,7 @@
     "tubugl-camera": "^1.3.2",
     "tubugl-constants": "^1.0.3",
     "tubugl-core": "^1.1.8",
-    "tubugl-math": "kenjiSpecial/tubugl-math"
+    "tubugl-math": "^1.1.9"
   },
   "devDependencies": {
     "babel-preset-env": "^1.6.1",
