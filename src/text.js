@@ -18,11 +18,12 @@ export class Text extends Object3D {
 		this._textAlign = params.textAlign ? params.textAlign : 'center';
 		this._verticalAlign = params.verticalAlign ? params.verticalAlign : 'middle';
 		this._side = params.side ? params.side : 'double';
-		this.smoothing = 1 / 8;
-		this.hintAmount = 1.0;
-		this.subpixelAmount = 1.0;
-		this.bgColor = [0, 0, 0];
-		this.fontColor = [1, 1, 1];
+
+		this.smoothing = params.smoothing ? params.smoothing : 1 / 8;
+		this.hintAmount = params.hintAmount ? params.hintAmount : 1.0;
+		this.subpixelAmount = params.subpixelAmount ? params.subpixelAmount : 1.0;
+		this.bgColor = params.bgColor ? params.bgColor : [0, 0, 0];
+		this.fontColor = params.fontColor ? params.fontColor : [1, 1, 1];
 
 		if (this._fontData) {
 			this._textureSize = this._fontData.common.scaleW;
@@ -179,7 +180,7 @@ export class Text extends Object3D {
 			curPosition.x += textFontData.xadvance * fontScale;
 
 			if (!this._textWidth) {
-				if (ii == this._text.length - 1)
+				if (ii != this._text.length - 1)
 					textTotalWidth += textFontData.xadvance * fontScale;
 				else textTotalWidth += textWidth;
 			}
