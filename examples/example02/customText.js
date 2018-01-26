@@ -75,11 +75,10 @@ export class CustomText {
 		this._front.updateFontTexture(texture);
 		this._back.updateFontTexture(texture);
 	}
-	render(camera) {
-		// this._rate += 1 / 60;
+	render(camera, speed) {
 		this.updateText();
-		this._front.rate += this._rotSpeed;
-		this._back.rate += this._rotSpeed;
+		this._front.rate += this._rotSpeed * speed;
+		this._back.rate += this._rotSpeed * speed;
 		this._front.render(camera);
 		this._back.render(camera);
 	}

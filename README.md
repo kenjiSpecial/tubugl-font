@@ -1,5 +1,7 @@
 # tubugl-font
 
+[![NPM version][npm-image]][npm-url] 
+
 font rendering with tubugl
 
 it uses [signed distance field method](http://www.valvesoftware.com/publications/2007/SIGGRAPH2007_AlphaTestedMagnification.pdf) for rendering of font.
@@ -9,7 +11,7 @@ it uses [signed distance field method](http://www.valvesoftware.com/publications
 To install it with yarn:
 
 ```sh
-yarn add kenjiSpecial/tubugl-fonts 
+yarn add tubugl-fonts 
 ```
 
 ## tool to export font file into png and json
@@ -20,7 +22,7 @@ hiero and fnt_to_json.py in tools folder are used to export png and json for ren
 
 ## examples
 
-https://github.com/kenjiSpecial/tubugl-font
+https://kenjispecial.github.io/tubugl-font/
 
 ## Running the examples locally
 
@@ -39,6 +41,6 @@ yarn run example00 # 00 - 02 are available
 - [https://github.com/Empty2k12/WebGL2SDFText](https://github.com/Empty2k12/WebGL2SDFText)
 - [https://github.com/mapbox/tiny-sdf](https://github.com/mapbox/tiny-sdf)
 
-[npm-image]: https://img.shields.io/npm/v/###-###.svg?style=flat-square
-[npm-url]: https://www.npmjs.com/package/###-###
+[npm-image]: https://img.shields.io/npm/v/tubugl-font.svg?style=flat-square
+[npm-url]: https://www.npmjs.com/package/tubugl-font
  
