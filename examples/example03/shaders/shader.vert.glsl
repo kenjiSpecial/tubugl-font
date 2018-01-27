@@ -1,3 +1,6 @@
+#define PI 3.141592
+#define TWO_PI 6.283184
+
 attribute vec4 a_position;
 attribute vec2 uv;
 attribute vec2 customUv;
@@ -8,6 +11,7 @@ uniform float uProgressRate;
 uniform vec2 uTrans;
 
 varying vec2 vUv;
+varying vec2 vCustomUv;
 varying float vTransRate;
 
 mat4 rotationMatrix(vec3 axis, float angle){
@@ -19,15 +23,15 @@ mat4 rotationMatrix(vec3 axis, float angle){
     return mat4(oc * axis.x * axis.x + c,           oc * axis.x * axis.y - axis.z * s,  oc * axis.z * axis.x + axis.y * s,  0.0,
                 oc * axis.x * axis.y + axis.z * s,  oc * axis.y * axis.y + c,           oc * axis.y * axis.z - axis.x * s,  0.0,
                 oc * axis.z * axis.x - axis.y * s,  oc * axis.y * axis.z + axis.x * s,  oc * axis.z * axis.z + c,           0.0,
-                uTrans.x,                                uTrans.y,                                0.0,                                1.0);
+                0.0,                                0.0,                                0.0,                                1.0);
 }
 
 void main() {
-    vec3 axis = vec3(0., 1., 0.);
+    vec3 axis = vec3(1., 0., 0.);
+    mat4 modelMatrix = rotationMatrix(axis, TWO_PI * (uProgressRate  ));
     
-    mat4 modelMat = rotationMatrix(axis, 3.1415 * (uProgressRate + (1.0 - customUv.y) * 0.5));
-    gl_Position = projectionMatrix * viewMatrix * modelMat * a_position;
-
+    gl_Position = projectionMatrix * viewMatrix * modelMatrix * a_position;
     vUv =   uv;
-    vTransRate = (cos(3.1415 * (uProgressRate * 2.0+ (customUv.x) )) + 1.0)/2.;
+    vCustomUv = customUv;
+    vTransRate = 1.0;
 }

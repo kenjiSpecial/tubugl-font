@@ -135,6 +135,7 @@ export class Text extends Object3D {
 	}
 
 	_makeBuffer() {
+		console.log('makeBuffer');
 		let imageWidth = this._fontData.common.scaleW;
 		let imageHeight = this._fontData.common.scaleH;
 		let fontScale = this._fontSize / this._fontData.info.size;

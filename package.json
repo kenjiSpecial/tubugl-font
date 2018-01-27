@@ -8,10 +8,11 @@
     "example00": "parcel examples/example00/index.html --no-hmr",
     "example01": "parcel examples/example01/index.html --no-hmr",
     "example02": "parcel examples/example02/index.html --no-hmr",
+    "example03": "parcel examples/example03/index.html --no-hmr",
     "dist00": "parcel build examples/example00/index.html -d docs/example00 --public-url ./",
     "dist01": "parcel build examples/example01/index.html -d docs/example01 --public-url ./",
     "dist02": "parcel build examples/example02/index.html -d docs/example02 --public-url ./",
-    "dist03": "parcel build examples/example03/index.html -d docs/example02 --public-url ./",
+    "dist03": "parcel build examples/example03/index.html -d docs/example03 --public-url ./",
     "screenshot00": "node ./node/screenshot.js --dir=example00",
     "docs": "python -m SimpleHTTPServer 8000"
   },

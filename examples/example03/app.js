@@ -3,12 +3,10 @@ const TweenLite = require('gsap/src/uncompressed/TweenLite');
 const Stats = require('stats.js');
 
 import { Texture } from 'tubugl-core';
-import { CustomText } from './customText';
+import { TimeFontFace, TimeText } from './customText';
 
-// import { appCall } from '../../src/index'
-
-import json from '../assets/roboto.json';
-import imgURL from '../assets/roboto.png';
+import json from '../assets/robotoBold.json';
+import imgURL from '../assets/robotoBold.png';
 
 import { OrthographicCamera } from 'tubugl-camera';
 
@@ -28,7 +26,7 @@ export default class App {
 
 		this.resize(this._width, this._height);
 		this._makeCamera();
-		this._makeText();
+		this._makeClock();
 
 		if (params.isDebug) {
 			this.stats = new Stats();
@@ -47,38 +45,13 @@ export default class App {
 			.add(this, '_speed', 0.1, 1.5)
 			.step(0.01)
 			.name('rotationSpeed');
-		// this._text.addGUI(this.gui);
 	}
 
-	_makeText() {
-		let fontSize = 50;
+	_makeClock() {
+		let fontSize = 30;
 		this._textes = [];
 
-		let xx = 4;
-		let yy = 4;
-		let cnt = 0;
-		for (let yPos = -yy; yPos <= yy; yPos++) {
-			for (let xPos = -xx; xPos <= xx; xPos++) {
-				let rotSpeed = 1 / 80;
-
-				this._textes.push(
-					new CustomText(
-						this.gl,
-						{
-							transX: 50 * xPos,
-							transY: 50 * yPos,
-							rotSpeed: rotSpeed,
-							direction: cnt % 2 === 0 ? 1 : -1
-						},
-						json,
-						null,
-						fontSize
-					)
-				);
-
-				cnt++;
-			}
-		}
+		this._textes.push(new TimeFontFace(this.gl, {}, json, null, fontSize));
 	}
 
 	_makeCamera() {
@@ -102,7 +75,7 @@ export default class App {
 			.setFilter()
 			.wrap()
 			.fromImage(this._fontImg, this._fontImg.width, this._fontImg.height);
-		// this._text.updateFontTexture(this._fontTexture);
+
 		this._textes.forEach(text => {
 			text.updateFontTexture(this._fontTexture);
 		});
@@ -137,7 +110,7 @@ export default class App {
 		this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
 		this._textes.forEach(text => {
-			text.render(this._orthographicCamera, this._speed);
+			text.render(this._orthographicCamera);
 		});
 	}
 

@@ -4,6 +4,7 @@ uniform sampler2D uTexture;
 
 varying vec2 vUv;
 varying float vTransRate;
+varying vec2 vCustomUv;
 
 uniform float uSmoothing;
 uniform float uSdfTexel;
@@ -23,6 +24,9 @@ vec3 subpixel( float v, float a ) {
 }
 
 void main() {
+    // gl_FragColor = vec4(vUv, 0.0, 1.0);
+    // gl_FragColor = vec4(vCustomUv, 0.0, 1.0);
+    
     float sdf       = texture2D( uTexture, vUv ).a;
     float alpha       = smoothstep( 0.5 - uSmoothing, 0.5 + uSmoothing, sdf );
     if ( alpha < 20.0 / 256.0 ) discard;
