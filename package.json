@@ -14,6 +14,7 @@
     "dist02": "parcel build examples/example02/index.html -d docs/example02 --public-url ./",
     "dist03": "parcel build examples/example03/index.html -d docs/example03 --public-url ./",
     "screenshot00": "node ./node/screenshot.js --dir=example00",
+    "screenshot03": "node ./node/screenshot.js --dir=example03",
     "docs": "python -m SimpleHTTPServer 8000"
   },
   "dependencies": {

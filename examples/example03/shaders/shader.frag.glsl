@@ -12,25 +12,26 @@ uniform float uHintAmount;
 uniform float uSubpixelAmount;
 uniform vec3 uBgColor;
 uniform vec3 uFontColor;
+uniform float uProgressRate;
 
-vec3 subpixel( float v, float a ) {
-    float vt      = 0.6 * v; // 1.0 will make your eyes bleed
-    vec3  rgb_max = vec3( -vt, 0.0, vt );
-    float top     = abs( vt );
-    float bottom  = -top - 1.0;
-    float cfloor  = mix( top, bottom, a );
-    vec3  res     = clamp( rgb_max - vec3( cfloor ), 0.0, 1.0 );
-    return res;
+const float curNum0 = 0.0;
+const float curNum1 = 1.0;
+
+vec2 getUv(vec2 customUv){
+    float sizeX = 0.1;
+    return vec2( sizeX, 1.0) *customUv + vec2( (uProgressRate - 0.5) * sizeX, 0.0); 
 }
 
+
 void main() {
-    // gl_FragColor = vec4(vUv, 0.0, 1.0);
-    // gl_FragColor = vec4(vCustomUv, 0.0, 1.0);
-    
-    float sdf       = texture2D( uTexture, vUv ).a;
-    float alpha       = smoothstep( 0.5 - uSmoothing, 0.5 + uSmoothing, sdf );
-    if ( alpha < 20.0 / 256.0 ) discard;
-    alpha = alpha * mix(0.3, 1.0, vTransRate);
-    vec3 res = mix( uBgColor, uFontColor, alpha  );
-    gl_FragColor = vec4(res, alpha);       
+    vec4 texColor;
+
+    float scale = mix(0.5, 0.1, (cos(uProgressRate * 6.28 + vUv.x * 3.14/10.) + 1.)/2.) ;
+    // scale = 0.1;
+    vec2 uv = getUv(vec2(vUv.x, clamp( (vUv.y - 0.5 )/scale + 0.5, 0.0, 1.0)) );
+    texColor = texture2D( uTexture, uv);
+
+    if(texColor.a < 0.01)  discard;
+    gl_FragColor = texColor;
+    if(!gl_FrontFacing) gl_FragColor.a = gl_FragColor.a * 0.1;
 }   

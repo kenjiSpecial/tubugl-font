@@ -5,8 +5,8 @@ const Stats = require('stats.js');
 import { Texture } from 'tubugl-core';
 import { TimeFontFace, TimeText } from './customText';
 
-import json from '../assets/robotoBold.json';
-import imgURL from '../assets/robotoBold.png';
+// import json from '../assets/robotoBold.json';
+import imgURL from '../assets/robotoCustom.png';
 
 import { OrthographicCamera } from 'tubugl-camera';
 
@@ -42,7 +42,7 @@ export default class App {
 		this.gui = new dat.GUI();
 		this.playAndStopGui = this.gui.add(this, '_playAndStop').name('pause');
 		this.gui
-			.add(this, '_speed', 0.1, 1.5)
+			.add(this, '_speed', 0.1, 2.0)
 			.step(0.01)
 			.name('rotationSpeed');
 	}
@@ -51,7 +51,7 @@ export default class App {
 		let fontSize = 30;
 		this._textes = [];
 
-		this._textes.push(new TimeFontFace(this.gl, {}, json, null, fontSize));
+		this._textes.push(new TimeFontFace(this.gl, {}, null, null, fontSize));
 	}
 
 	_makeCamera() {
@@ -110,7 +110,7 @@ export default class App {
 		this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
 		this._textes.forEach(text => {
-			text.render(this._orthographicCamera);
+			text.render(this._orthographicCamera, this._speed);
 		});
 	}
 
@@ -119,19 +119,12 @@ export default class App {
 	}
 
 	mouseMoveHandler(mouse) {
-		if (!this._isMouseDown) return;
-
-		this._prevMouse = mouse;
+		// this._prevMouse = mouse;
 	}
 
-	mouseDownHandler(mouse) {
-		this._isMouseDown = true;
-		this._prevMouse = mouse;
-	}
+	mouseDownHandler(mouse) {}
 
-	mouseupHandler() {
-		this._isMouseDown = false;
-	}
+	mouseupHandler() {}
 
 	onKeyDown(ev) {
 		switch (ev.which) {
