@@ -1,6 +1,6 @@
 {
   "name": "tubugl-font",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "rendering font with tubugl",
   "main": "./src/main.js",
   "license": "MIT",
