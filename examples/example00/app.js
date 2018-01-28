@@ -19,7 +19,7 @@ export default class App {
 		this._height = params.height ? params.height : window.innerHeight;
 
 		this.canvas = document.createElement('canvas');
-		this.gl = this.canvas.getContext('webgl');
+		this.gl = this.canvas.getContext('webgl2');
 
 		this._makeCamera();
 		this._makeText();

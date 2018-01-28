@@ -48,6 +48,6 @@ void main() {
     // For subpixel rendering we have to blend each color channel separately
     vec3 res = mix( uBgColor, uFontColor, channels );
     
-    gl_FragColor = vec4(res, 1.0);       
+    gl_FragColor = vec4(res, alpha);       
     
 }   
