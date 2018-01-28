@@ -11,7 +11,7 @@ it uses [signed distance field method](http://www.valvesoftware.com/publications
 To install it with yarn:
 
 ```sh
-yarn add tubugl-fonts 
+yarn add tubugl-font
 ```
 
 ## tool to export font file into png and json
